@@ -1,0 +1,19 @@
+.p1{
+    color: blue;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.horizontal{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 80px;
+    align-items: center;
+}
+
+*{
+    background-image:url("https://free4kwallpapers.com/uploads/originals/2020/03/30/cyberpunk-wallpaper.jpg");
+    background-repeat: none;
+}
