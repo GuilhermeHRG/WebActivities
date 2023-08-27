@@ -1,19 +1,133 @@
-.p1{
-    color: blue;
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-.horizontal{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 80px;
-    align-items: center;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-*{
-    background-image:url("https://free4kwallpapers.com/uploads/originals/2020/03/30/cyberpunk-wallpaper.jpg");
-    background-repeat: none;
+body {
+    height: 100vh;
+    width: 100vh;
+    background: linear-gradient(90deg, rgba(48, 2, 153, 1) 0%, rgba(0, 145, 72, 1) 100%);
+}
+.board{
+    
+    display: grid;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-content:center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+.board.x .celula:not(.x):not(.circle):hover::after,
+.board.x .celula:not(.x):not(.circle):hover::before{
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: none !important;
+}
+.board.circle .celula:not(.x):not(.circle):hover::after,
+.board.circle .celula:not(.x):not(.circle):hover::before{
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: none !important;
+}
+.celula:nth-child(1){
+    border-top-left-radius: 20px;
+}
+.celula:nth-child(7){
+    border-bottom-left-radius: 20px;
+}
+.celula:nth-child(3){
+    border-top-right-radius: 20px;
+}
+.celula:nth-child(9){
+    border-bottom-right-radius: 20px;
+}
+.celula:nth-child(1),
+.celula:nth-child(2),
+.celula:nth-child(3){
+    border-top: none;
+}
+.celula:nth-child(1),
+.celula:nth-child(4),
+.celula:nth-child(7){
+    border-left: none;
+}
+.celula:nth-child(3),
+.celula:nth-child(6),
+.celula:nth-child(9){
+    border-right: none;
+}
+.celula:nth-child(7),
+.celula:nth-child(8),
+.celula:nth-child(9){
+    border-bottom: none;
+}
+.celula{
+    background-color: rgba(3, 3, 3, 0.26);
+    width: 100px;
+    height: 100px;
+    border: 2px dashed rgba(255, 255, 255, 0.705);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.celula:hover{
+    cursor: pointer;
+    scale: 1.1;
+    background-color: rgba(255, 255, 255, 0.301);
+}
+/* ja´selecionado */
+.celula.x, .celula.circle:hover{
+    cursor: not-allowed;
+    scale: 1;
+    background-color: rgba(3, 3, 3, 0.26);
+}
+/* X */
+.celula.x::before,
+.celula.x::after,
+.board.x .celula:not(.x):not(.circle):hover::after,
+.board.x .celula:not(.x):not(.circle):hover::before{
+    content: "";
+    height: calc(100px * 0.15);
+    width: calc(100px * 0.9);
+    background: rgb(95, 255, 175);
+    border: 1px solid white;
+    position: absolute;
+}
+
+.celula.celula.x::before, 
+.board.x .celula:not(.x):not(.circle):hover::before{
+    transform: rotate(45deg);
+}
+.celula.celula.x::after, 
+.board.x .celula:not(.x):not(.circle):hover::after{
+    transform: rotate(-45deg);
+}
+
+/* O */
+.celula.circle::before,
+.celula.circle::after, 
+.board.circle .celula:not(.x):not(.circle):hover::after,
+.board.circle .celula:not(.x):not(.circle):hover::before{
+    content: "";
+    height: calc(100px * 0.9);
+    width: calc(100px * 0.9);
+    background: rgb(111, 108, 252);
+    border: 1px solid white;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.celula.celula.circle::before, 
+.board.circle .celula:not(.x):not(.circle):hover::before{
+    transform: rotate(45deg);
+}
+.celula.celula.circle::after, 
+.board.circle .celula:not(.x):not(.circle):hover::after{
+    transform: rotate(-45deg);
+}
+
+.venceumsg{
+    display: none;
 }
