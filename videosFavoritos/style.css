@@ -1,0 +1,185 @@
+/* Estilos gerais */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .main {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        gap: 50px;
+        color: rgb(3, 49, 90);
+        background-color: rgba(93, 175, 247, 0.644);
+        width: 100%;
+        height: 10vh; /* Usando unidades de viewport para altura */
+    }
+    a{
+        display: flex;
+        font-weight: bold;
+        align-items: center;
+        font-size: 20px;
+    }
+    a:hover{
+        cursor: pointer;
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        background-color: white;
+        color: black;
+    }
+    .videos {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        height: 50px; /* Altura ajustável */
+    }
+    .estilovideo {
+        display: none;
+        margin: 20px;
+        padding: 10px;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgb(5, 57, 102);
+        width: 100%;
+        height: 100%; /* Altura ajustável */
+    }
+    .voltarButton {
+        display: flex;
+        text-decoration: none;
+        justify-content: center;
+        margin: 20px; /* Reduzido o espaço de margem */
+        color: white;
+        width: 60px;
+        height: 40px;
+        align-items: center;
+        border: none;
+    }
+    .voltarButton:hover {
+        display: flex;
+        transform: scale(1.1);
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .voltarButton img {
+        width: 50px;
+        height: 40px;
+    }
+    #theme-toggle:checked + .theme-switch {
+        background-color: #333;
+    }
+    
+    #theme-toggle:checked + .theme-switch::before {
+        content: "🌙"; /* Ícone de lua para indicar o tema escuro */
+    }
+    
+    #theme-toggle:checked ~ body {
+        background-color: #333;
+        color: white;
+    }
+}
+
+/* RESPONSIVIDADE DESKTOP  */
+@media (min-width: 769px) {
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: rgb(3, 49, 90);
+    background-color: rgba(93, 175, 247, 0.644);
+    width: 100%;
+    height: 100%;
+}
+a{
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    margin-left: 30px;
+    font-size: 50px;
+}
+a:hover{
+    cursor: pointer;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    color: black;
+}
+body:target {
+    background-color: #333;
+    color: white;
+}
+.videos{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px; 
+}
+.estilovideo{
+    display: none;
+    margin: 20px;
+    padding: 10px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color:rgb(5, 57, 102);
+    width: 100%;
+    height: 100vh;
+}
+.video {
+    width: 80%; /* Defina o valor adequado para sua situação */
+    height: 80%; /* Altura ajustável para manter a proporção original */
+}
+.voltarButton{
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    margin: 40px;
+    color: white;
+    background-color:rgb(96, 158, 212);
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    border: none;
+}
+
+.voltarButton:hover{
+    display: flex;
+    transform: scale(1.1);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+.voltarButton img{
+    width: 60px;
+    height: 60px;
+}
+#theme-toggle:checked + .theme-switch {
+    background-color: #333;
+}
+
+#theme-toggle:checked + .theme-switch::before {
+    content: "🌙"; /* Ícone de lua para indicar o tema escuro */
+}
+
+#theme-toggle:checked ~ body {
+    background-color: #333;
+    color: white;
+}
+
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuiTube</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+    <h1>
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle" class="theme-switch"></label>
+        GuiTube
+    </h1></div>
+    <div class="videos">
+        <a  id="text1" onclick="changeVideo('https://www.youtube.com/embed/TAB1MZyE-zk')">Vídeo 1</a>
+        <a  id="text2" onclick="changeVideo('https://www.youtube.com/embed/eQVgBhwvi3c')">Vídeo 2</a>
+        <a  id="text3" onclick="changeVideo('https://www.youtube.com/embed/KrLj6nc516A')">Vídeo 3</a>
+    </div>
+    <div id="videoContainer" class="estilovideo">
+        <iframe id="videoPlayer" class="video" src="" frameborder="0" allowfullscreen></iframe>
+        <a href="index.html">
+            <button class="voltarButton"><img src="https://th.bing.com/th/id/R.2c60107316b7cc24e1000b68986723b1?rik=haTiosi7dmkraQ&riu=http%3a%2f%2fpngimg.com%2fuploads%2fexit%2fexit_PNG29.png&ehk=5XW9S9u5EpuPiY%2fLMdDQp5aOe5k3Sgmkx2U3lAxqzQY%3d&risl=&pid=ImgRaw&r=0" alt=""></button>
+        </a>
+    </div>
+
+    <script>
+        function changeVideo(url) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoContainer = document.getElementById('videoContainer');
+            videoPlayer.src = url;
+            videoContainer.style.display = 'flex';
+        }
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const text1 = document.text1;
+        const text2 = document.text2;
+        const text3 = document.text3;
+        const body = document.body;
+
+        themeToggle.addEventListener('change', function () {
+            if (themeToggle.checked) {
+                body.style.background = 'black';
+                body.style.color = 'white';
+                text1.style.color = 'white';
+                text2.style.color = 'white';
+                text3.style.color = 'white';
+            } else {
+                body.style.background = 'white';
+                body.style.color = 'black';
+                text1.style.color = 'white';
+                text2.style.color = 'white';
+                text3.style.color = 'white';
+            }
+        });
+    </script>
+</body>
+</html>
