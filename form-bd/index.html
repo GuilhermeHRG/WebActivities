@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Produto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+     
+    </style>
+</head>
+<body>
+    <div class="formulario">
+        <div class="styleForm">
+            <h1>Cadastro de Produto</h1>
+            <input type="text" id="nomeProduto" placeholder="Nome do Produto">
+            <input type="text" id="codigoBarra" placeholder="Código de Barra">
+            <input type="text" id="descricaoProduto" placeholder="Descrição do Produto">
+            <input type="text" id="idProduto" placeholder="ID do Produto">
+            <input type="text" id="valorProduto" placeholder="Valor do Produto">
+            <button onclick="adicionarProduto()">Adicionar Produto</button>
+        </div>
+
+        <div class="mainB">
+            <table id="tabelaProdutos">
+                <tr>
+                    <th>Nome do Produto</th>
+                    <th>Código de Barra</th>
+                    <th>Descrição do Produto</th>
+                    <th>ID do Produto</th>
+                    <th>Valor do Produto</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
