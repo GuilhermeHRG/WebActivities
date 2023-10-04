@@ -1,58 +1,86 @@
-// URL da API
-const url = 'http://reserva.laboratorio.app.br:10100';
+      // URL da API
+      const url = 'http://reserva.laboratorio.app.br:10100';
 
-// Opções da requisição
-const options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-};
-
-// Função assíncrona para fazer a requisição para a API
-async function fetchData(url, options) {
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.log('Erro:', error);
-    }
-}
-
-// Função para adicionar uma linha na tabela
-function adicionarLinhaNaTabela(produto) {
-    const tabela = document.getElementById("tabelaProdutos");
-    const linha = tabela.insertRow(-1);
-    linha.insertCell(0).innerHTML = produto.nome;
-    linha.insertCell(1).innerHTML = produto.codbarra;
-    linha.insertCell(2).innerHTML = produto.desc;
-    linha.insertCell(3).innerHTML = produto._idProduto;
-    linha.insertCell(4).innerHTML = produto.valor;
-}
-
-// Função para pegar dados dos input
-async function adicionarProduto() {
-    const produto = {
-        _idProduto: document.getElementById("idProduto").value,
-        nome: document.getElementById("nomeProduto").value,
-        codbarra: document.getElementById("codigoBarra").value,
-        desc: document.getElementById("descricaoProduto").value,
-        valor: document.getElementById("valorProduto").value,
-    };
-
-    // Imprime o objeto no console
-    console.log(produto);
-
-    // Atualiza as opções da requisição com o corpo sendo o produto
-    options.body = JSON.stringify(produto);
-
-    // Chama a função fetchData e espera pela resposta
-    const data = await fetchData(url, options);
-
-    // Se a resposta for bem-sucedida, adiciona uma linha na tabela
-    if (data) {
-        adicionarLinhaNaTabela(produto);
-    }
-}
+      // Função para fazer a requisição GET para a API
+      function fazerRequisicao() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                  var data = JSON.parse(xhr.responseText);
+                  exibirResultado(data);
+              }
+          };
+          xhr.open("GET", url + "/produtos", true);
+          xhr.send();
+      }
+      
+      // Função para exibir o resultado na tabela
+      function exibirResultado(data) {
+          var tabela = document.getElementById("resultadoTabela");
+          tabela.innerHTML = "";
+      
+          data.forEach(function (item) {
+              var row = tabela.insertRow();
+              var cell1 = row.insertCell(0);
+              var cell2 = row.insertCell(1);
+              var cell3 = row.insertCell(2);
+              var cell4 = row.insertCell(3);
+              var cell5 = row.insertCell(4);
+              var cell6 = row.insertCell(5);
+              var cell7 = row.insertCell(6);
+      
+              cell1.innerHTML = item.id;
+              cell2.innerHTML = item.codbarra;
+              cell3.innerHTML = item.nome;
+              cell4.innerHTML = item.desc;
+              cell5.innerHTML = item.valor;
+              cell6.innerHTML = '<button>editar</button>';
+              cell7.innerHTML = '<button onclick=excluirProduto(\'' + item.id + '\')">Excluir</button>';
+          });
+      }
+      
+      // Função para excluir um produto
+      function excluirProduto(idProduto){
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function(){
+              if(xhr.readyState === 4 && xhr.status === 200){
+                  document.getElementById("resposta").value = xhr.responseText;
+                  fazerRequisicao();
+              }
+          };
+      
+          xhr.open("DELETE", url + "/produto/" + idProduto, true);
+          xhr.send();
+      }
+      
+      // Função para pegar dados dos input e fazer a requisição POST para a API
+      function adicionarProduto() {
+          const produto = {
+              _idProduto: document.getElementById("idProduto").value,
+              nome: document.getElementById("nomeProduto").value,
+              codbarra: document.getElementById("codigoBarra").value,
+              desc: document.getElementById("descricaoProduto").value,
+              valor: document.getElementById("valorProduto").value,
+          };
+      
+          // Imprime o objeto no console
+          console.log(produto);
+      
+          // Cria uma nova requisição
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                  // Atualiza a tabela com os novos dados
+                  fazerRequisicao();
+              }
+          };
+      
+          // Abre a requisição
+          xhr.open("POST", url + "/produto", true);
+      
+          // Define o cabeçalho da requisição
+          xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      
+          // Envia a requisição
+          xhr.send(JSON.stringify(produto));
+      }
