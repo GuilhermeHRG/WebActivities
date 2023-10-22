@@ -84,3 +84,49 @@
           // Envia a requisição
           xhr.send(JSON.stringify(produto));
       }
+
+// Função para editar um produto
+function editarProduto(idProduto) {
+    // Recupere os valores dos campos de edição (por exemplo, campos de input)
+    const novoNome = document.getElementById("novoNomeProduto").value;
+    const novoCodigoBarra = document.getElementById("novoCodigoBarra").value;
+    const novaDescricao = document.getElementById("novaDescricaoProduto").value;
+    const novoValor = document.getElementById("novoValorProduto").value;
+
+    // Crie um objeto com os dados atualizados
+    const produtoAtualizado = {
+        nomeProduto: novoNome,
+        codigoBarra: novoCodigoBarra,
+        descricaoProduto: novaDescricao,
+        valorProduto: novoValor
+    };
+
+    // Faça uma requisição PUT para a API para atualizar o produto
+    fetch(url + "/produto/" + idProduto, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(produtoAtualizado)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Atualize a tabela após a edição
+        fazerRequisicao();
+    })
+    .catch(error => {
+        console.error('Erro ao editar o produto:', error);
+    });
+}
+function excluirProduto(idProduto){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            document.getElementById("resposta").value = xhr.responseText;
+            fazerRequisicao(); // Atualiza a tabela após a exclusão
+        }
+    };
+
+    xhr.open("DELETE", url + "/produto/" + idProduto, true);
+    xhr.send();
+}
