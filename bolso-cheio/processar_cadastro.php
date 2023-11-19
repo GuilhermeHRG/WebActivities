@@ -1,47 +1,52 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupere os dados do formulário
     $nome = $_POST["nome"];
     $email = $_POST["email"];
-    $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT); // Hash da senha
+    $senha = $_POST["senha"];  
 
-    // Conecte-se ao banco de dados
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "meu_banco_de_dados";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Verifique a conexão
-    if ($conn->connect_error) {
-        die("Erro de conexão: " . $conn->connect_error);
-    }
-
-    // Insira os dados na tabela de usuários
-    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $nome, $email, $senha);
-
-    if ($stmt->execute()) {
-        echo "Cadastro realizado com sucesso!";
+    // Validação básica dos dados do formulário
+    if (empty($nome) || empty($email) || empty($senha)) {
+        $mensagem = "Por favor, preencha todos os campos do formulário.";
     } else {
-        echo "Erro no cadastro: " . $stmt->error;
-    }
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "pokemon";
 
-    $stmt->close();
-    $conn->close();
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        if ($conn->connect_error) {
+            die("Erro de conexão: " . $conn->connect_error);
+        }
+
+        // Proteção contra SQL Injection
+        $inserirUsuario = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($inserirUsuario);
+        $stmt->bind_param("sss", $nome, $email, $senha);
+
+        if ($stmt->execute()) {
+            $mensagem = "Cadastro realizado com sucesso!";
+        } else {
+            $mensagem = "Erro no cadastro: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
 }
 ?>
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Realizado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
-    <button><a href="login.php">Login</a></button>
+<body class="container d-flex align-items-center justify-content-center bg-success text-green" style="height: 100vh;">
+    <?php if (isset($mensagem)): header("Location: login.php");?>
+        <p><?php echo $mensagem; ?></p>
+    <?php endif; ?>
 </body>
 </html>
-

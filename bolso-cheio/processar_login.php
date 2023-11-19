@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "meu_banco_de_dados";
+    $dbname = "pokemon";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,17 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT id, nome, senha FROM usuarios WHERE email = ?";
+    $sql = "SELECT id, nome, senha FROM usuarios WHERE email = ? AND senha = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("ss", $email, $senha);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if ($user && password_verify($senha, $user["senha"])) {
+    if ($user) {
         // Autenticação bem-sucedida
         $_SESSION["username"] = $user["nome"];
         echo "Login bem-sucedido. Bem-vindo, " . $_SESSION["username"] . "!";
+        header("Location: home.php");
     } else {
         // Credenciais incorretas
         echo "Credenciais incorretas. Por favor, tente novamente.";
