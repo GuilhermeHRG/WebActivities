@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atividade-04</title>
+</head>
+<body>
+    <div class="navBar">
+        <div class="navMenu">
+            <ul class="ul">
+                <li>Home</li>
+                <li>Produtos</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+    </div>
+    <style>
+        body{
+            width: 100%;
+        }
+        .ul{
+            display: flex;
+            padding: 10px;
+            list-style: none;
+            padding: 10px;
+            gap: 10px;
+            font-size: 20px;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        li{
+            width: 200px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(0, 59, 126);
+        }
+        .navBar{
+            border-radius: 10px;
+            flex-wrap: wrap;
+            width: auto;
+            height: 80px;
+            align-items: center;
+            justify-content: center;
+            color: aliceblue;
+        }
+
+        @media screen and (max-width: 600px){ 
+            .ul{
+            display: flex;
+            padding: 10px;
+            list-style: none;
+            padding: 10px;
+            gap: 10px;
+            font-size: 20px;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: auto;
+            height: auto;
+            margin: auto;
+            gap: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            height: auto;
+            background-color: rgba(199, 186, 1, 0.103);
+            border: 1px solid red;
+            border-radius: 18px;
+            padding: 10px;
+            gap: 2px;
+        }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        .container1 .box {
+            margin: auto;
+        }
+
+        .container2 {
+            align-items: flex-end;
+        }
+
+        .container2 .box:nth-child(2) {
+            align-self: center;
+        }
+
+        .container2 .box:nth-child(3) {
+            align-self: flex-start;
+        }
+
+        .container3 {
+            align-items: flex-start;
+        }
+
+        .container3 .box:nth-child(2) {
+            align-self: flex-end;
+        }
+
+        .container3 .box:nth-child(3) {
+            align-self: stretch;
+        }
+
+        .container4 .box:nth-child(1) {
+            align-self: stretch;
+        }
+
+        .container4 .box:nth-child(2) {
+            align-self: flex-end;
+        }
+
+        .container4 .box:nth-child(3) {
+            align-self: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="container container1">
+            <div class="box" style="background-color:blue; height: 20px; width: 50px;"></div>
+            <div class="box" style="background-color:red; height: 40px; width: 60px;"></div>
+            <div class="box" style="background-color:green;"></div>
+        </div>
+
+        <div class="container container2">
+            <div class="box" style="background-color:blue; height: 20px; width: 50px;"></div>
+            <div class="box" style="background-color:red; height: 40px; width: 60px;"></div>
+            <div class="box" style="background-color:green;"></div>
+        </div>
+
+        <div class="container container3">
+            <div class="box" style="background-color:blue; height: 20px; width: 50px;"></div>
+            <div class="box" style="background-color:red;height: 40px; width: 60px;"></div>
+            <div class="box" style="background-color:green; height: 80px; width: 70px;"></div>
+        </div>
+
+        <div class="container container4">
+            <div class="box" style="background-color:blue; height: 80px; width: 70px;"></div>
+            <div class="box" style="background-color:red; height: 40px; width: 60px;"></div>
+            <div class="box" style="background-color:green; height: 20px; width: 50px;"></div>
+        </div>
+    </div>
+</body>
+
+</html>
