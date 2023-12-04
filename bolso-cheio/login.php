@@ -19,7 +19,7 @@
         </div>
         <button type="submit" class="btn btn-success d-flex align-items-center justify-content-center">Entrar ✔️</button>
         <br>
-        <a href="reset_process.php" class="btn text-info ">Esqueci minha senha 😢</a>
+        <a href="recuperar_senha.php" class="btn text-info ">Esqueci minha senha 😢</a>
 
     </form>
 </body>

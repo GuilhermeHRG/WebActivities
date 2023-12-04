@@ -1,87 +1,64 @@
 <?php
-// recuperar_senha.php
-session_start();
+include 'conexao.php';
 
-// Inclua a biblioteca PHPMailer
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'caminho/para/PHPMailer/src/Exception.php';
-require 'caminho/para/PHPMailer/src/PHPMailer.php';
-require 'caminho/para/PHPMailer/src/SMTP.php';
+// ...
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupere os dados do formulário
     $email = $_POST["email"];
 
-    // Conecte-se ao banco de dados
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "pokemon";
+    // Verifique se o e-mail existe no banco de dados
+    $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+    $result = $conn->query($sql);
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($result->num_rows > 0) {
+        // Gere um token único para a recuperação de senha
+        $token = bin2hex(random_bytes(16));
 
-    // Verifique a conexão
-    if ($conn->connect_error) {
-        die("Erro de conexão: " . $conn->connect_error);
-    }
+        // Atualize o banco de dados com o token
+        $update_sql = "UPDATE usuarios SET token = '$token' WHERE email = '$email'";
+        $conn->query($update_sql);
 
-    // Consulta SQL para verificar se o email existe
-    $sql = "SELECT id, nome FROM usuarios WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+        // Configurar as configurações de e-mail
+        ini_set("SMTP", "smtp.gmail.com");
+        ini_set("smtp_port", 587);
+        ini_set("sendmail_from", "gguilherhenri232425@gmail.com");
 
-    if ($user) {
-        // Email encontrado, você pode implementar a lógica de recuperação aqui (por exemplo, enviar um email com um link de recuperação de senha)
+        // Envie um e-mail com o link de recuperação contendo o token
+        $assunto = "Recuperação de Senha";
+        $mensagem = "Para recuperar sua senha, clique no seguinte link: http://seusite.com/resetar_senha.php?token=$token";
+        $headers = "De: webmaster@seusite.com";
 
-        // Gere um token único para a recuperação de senha (pode ser implementado de maneira mais segura)
-        $token = md5(uniqid(rand(), true));
+        mail($email, $assunto, $mensagem, $headers);
 
-        // Atualize o token no banco de dados
-        $updateTokenSql = "UPDATE usuarios SET token_recuperacao = ? WHERE email = ?";
-        $updateTokenStmt = $conn->prepare($updateTokenSql);
-        $updateTokenStmt->bind_param("ss", $token, $email);
-        $updateTokenStmt->execute();
-        $updateTokenStmt->close();
+        // Restaurar as configurações padrão de e-mail
+        ini_restore("SMTP");
+        ini_restore("smtp_port");
+        ini_restore("sendmail_from");
 
-        // Envie o e-mail com o link de recuperação
-        $mail = new PHPMailer(true);
-
-        try {
-            //Configurações do servidor SMTP
-            $mail->isSMTP();
-            $mail->Host = 'smtp.seuservidor.com'; // Substitua pelo seu servidor SMTP
-            $mail->SMTPAuth = true;
-            $mail->Username = 'seuemail@dominio.com'; // Substitua pelo seu e-mail
-            $mail->Password = 'suasenha'; // Substitua pela sua senha
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            //Configurações do e-mail
-            $mail->setFrom('seuemail@dominio.com', 'Seu Nome');
-            $mail->addAddress($email, $user["nome"]);
-            $mail->isHTML(true);
-
-            //Conteúdo do e-mail
-            $mail->Subject = 'Recuperação de Senha';
-            $mail->Body    = 'Clique no link a seguir para redefinir sua senha: <a href="http://seusite.com/redefinir_senha.php?token=' . $token . '">Redefinir Senha</a>';
-
-            $mail->send();
-
-            echo "<p>Um email de recuperação de senha foi enviado para " . $email . "</p>";
-        } catch (Exception $e) {
-            echo "Erro ao enviar o email: {$mail->ErrorInfo}";
-        }
+        echo "Um e-mail foi enviado com instruções para a recuperação de senha.";
     } else {
-        // Email não encontrado
-        echo "<p>O email fornecido não está registrado em nossa base de dados.</p>";
+        echo "E-mail não encontrado.";
     }
-
-    $stmt->close();
-    $conn->close();
 }
+
+$conn->close();
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperação de Senha</title>
+</head>
+<body>
+    <h2>Recuperação de Senha</h2>
+    <form action="recuperar_senha.php" method="post">
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" required>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+
