@@ -1,47 +1,39 @@
 <?php
+
 include 'conexao.php';
 
-// ...
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
+require 'vendor/autoload.php';
 
-    // Verifique se o e-mail existe no banco de dados
-    $sql = "SELECT * FROM usuarios WHERE email = '$email'";
-    $result = $conn->query($sql);
+$mail = new PHPMailer(true);
 
-    if ($result->num_rows > 0) {
-        // Gere um token único para a recuperação de senha
-        $token = bin2hex(random_bytes(16));
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'enviaemail31@gmail.com';
+    $mail->Password = 'kakashihatake2016';
+    $mail->SMTPSecure = 'tls'; 
+    $mail->Port = 587; 
 
-        // Atualize o banco de dados com o token
-        $update_sql = "UPDATE usuarios SET token = '$token' WHERE email = '$email'";
-        $conn->query($update_sql);
+    $mail->setFrom('webmaster@seusite.com', 'Webmaster');
+    $mail->addAddress('guilhermehenriqueescritorio@gmail.com');
 
-        // Configurar as configurações de e-mail
-        ini_set("SMTP", "smtp.gmail.com");
-        ini_set("smtp_port", 587);
-        ini_set("sendmail_from", "gguilherhenri232425@gmail.com");
+    $mail->isHTML(true);
+    $mail->Subject = 'Recuperação de Senha';
+    $mail->Body = 'Para recuperar sua senha, clique no seguinte link: <a href="http://seusite.com/resetar_senha.php?token=23d837d7ba5c2724a5cb7a7bda0b4ac1">Recuperar Senha</a>';
 
-        // Envie um e-mail com o link de recuperação contendo o token
-        $assunto = "Recuperação de Senha";
-        $mensagem = "Para recuperar sua senha, clique no seguinte link: http://seusite.com/resetar_senha.php?token=$token";
-        $headers = "De: webmaster@seusite.com";
-
-        mail($email, $assunto, $mensagem, $headers);
-
-        // Restaurar as configurações padrão de e-mail
-        ini_restore("SMTP");
-        ini_restore("smtp_port");
-        ini_restore("sendmail_from");
-
-        echo "Um e-mail foi enviado com instruções para a recuperação de senha.";
-    } else {
-        echo "E-mail não encontrado.";
-    }
+    $mail->send();
+    echo 'E-mail enviado com sucesso!';
+} catch (Exception $e) {
+    echo 'Erro ao enviar o e-mail: ', $mail->ErrorInfo;
 }
 
 $conn->close();
+
+
 ?>
 
 

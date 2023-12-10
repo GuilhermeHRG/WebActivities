@@ -93,7 +93,7 @@ if (isset($_GET['id'])) {
 $sql = "SELECT id, nome, tipo FROM pokedex";
 $result = $conn->query($sql);
 
-echo '<div style="display: flex; justify-content: center; flex-direction: row; align-items: center; margin-top: 10px;">';
+echo '<div style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 40px;">';
 echo '<a href="logout.php" class="btn btn-danger">Logout ✖</a>';
 echo '</div>';
 
@@ -108,32 +108,69 @@ echo '</div>';
     <title>Cadastro de Pokémon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        body {
-            margin: auto;
-            padding: 0;
-            overflow: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100dvh;
-        }
-        form {
-            width: auto;
-            margin:  auto;
-        }
+       body {
+    margin: 40px;
+    padding: 20px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh; 
+}
 
-        table {
-            width: auto;
-            }
+form {
+    width: 100%;
+    margin: 10px;
+}
 
-        .container {
-            margin-top: 40px;
-        }
+table {
+    width: 100%;
+    max-width: 600px; 
+}
+
+.container {
+    display: flex-start;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row; 
+    margin-top: 10px;
+}
+img{
+        margin: 10px;
+        width: 40px;
+        height: 40px; 
+        border: 1px solid white;
+        border-radius: 50px;
+    }
+
+
+@media screen and (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+
+    table {
+        max-width: 100%;
+    }
+
+    .container {
+        margin-top: 10px; 
+    }
+    img{
+        width: 40px;
+        height: 40px; 
+    }
+}
+
     </style>
 </head>
-<div class="bg-primary container d-flex rounded p-4" style="width:auto; justify-content: flex-end;">
-    <span style="color: white; text-transform: uppercase ; ">logado como :  <?php echo $_SESSION['username']; ?></span>
+<div class="bg-primary container d-flex rounded p-4" style="width: auto; justify-content: flex-end;">
+    <img src="https://www.freeiconspng.com/thumbs/profile-icon-png/account-profile-user-icon--icon-search-engine-10.png" alt="">
+    <span style="color: white; text-transform: uppercase;">logado como: <?php echo $_SESSION['username']; ?></span>
+    
 </div>
+
 <body class="bg-secondary text-light  flex-column" style="width:auto; display: flex; justify-content: center ; align-items: center; padding:auto">
 
     <div class="container d-flex flex-column rounded p-4" style="width:50dvh;">
