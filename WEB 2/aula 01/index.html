@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo</title>
+    <style>
+        /* Estilos opcionais para o layout */
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #history {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bingo</h1>
+        <label for="interval">Escolha o intervalo de números:</label>
+        <input type="number" id="interval" min="1" value="75">
+        <br>
+        <button onclick="sortearNumero()">Sortear Número</button>
+        <h2>Número Sorteado:</h2>
+        <div id="numero-sorteado"></div>
+        <h2>Histórico de Números Sorteados:</h2>
+        <ul id="history"></ul>
+    </div>
+    
+    <script>
+        let historico = [];
+
+        function sortearNumero() {
+            const intervalo = parseInt(document.getElementById('interval').value);
+            let numeroSorteado;
+            do {
+                numeroSorteado = Math.floor(Math.random() * intervalo) + 1;
+            } while (historico.includes(numeroSorteado));
+            
+            historico.push(numeroSorteado);
+            document.getElementById('numero-sorteado').innerText = numeroSorteado;
+            atualizarHistorico();
+        }
+
+        function atualizarHistorico() {
+            const historyList = document.getElementById('history');
+            historyList.innerHTML = '';
+            historico.forEach(numero => {
+                const li = document.createElement('li');
+                li.textContent = numero;
+                historyList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
