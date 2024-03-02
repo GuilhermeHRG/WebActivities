@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Bingo</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Bingo</h1>
+        <label for="interval">Escolha o intervalo de números:</label>
+        <input type="number" id="interval" min="1" value="75">
+        <br>
+        <button onclick="sortearNumero()">Sortear Número</button>
+        <h2>Números Sorteados:</h2>
+        <ul id="history"></ul>
+        <h2>Cartela de Bingo</h2>
+        <div id="bingo-card"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

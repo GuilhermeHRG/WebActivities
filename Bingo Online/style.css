@@ -1,0 +1,91 @@
+    /* Estilos opcionais para o layout */
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    body{ 
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        background-size: contain;
+        background-image: url('https://wallpaperbat.com/img/227266-planets-blue-falling-stars-minimal-4k-space-minimalist.jpg');
+       
+    }
+
+    h1{
+        z-index: 999;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 58px;
+        border-radius: 8px;
+        background-color: #ffffff3b;
+    }
+    #bingo-card {
+        display: grid;
+        grid-template-columns: repeat(5, 60px);
+        grid-gap: 5px;
+        justify-content: center;
+        margin-top: 20px;
+        color: #000;
+        
+    }
+    input {
+        width: 60px;
+        height: 20px;
+        text-align: center;
+        padding: 8px;
+        justify-content: center;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+    label{
+        font-size: 28px;
+        margin: 20px;
+    }
+    button{
+        margin: 20px;
+        width: 150px;
+        height: 80px;
+        border-radius: 8px;
+        font-size: 20px;
+    }
+    button:hover{
+        scale: 1.2;
+        cursor: pointer;
+        background-color: rgb(85, 83, 204);
+        color: #fff;
+    }
+    .number {
+        width: 60px;
+        height: 60px;
+        background-color: #f0f0f0;
+        border: 1px solid #000;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .marked {
+        background-color: rgb(219, 240, 102);
+        scale: 1.1;
+        border:solid 1.5px black;
+    }
+    #history {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px;
+        text-align: center;
+        list-style: none;
+    }
+    #history li {
+        margin-bottom: 5px;
+        background-color: rgb(159, 224, 250);
+        padding: 4px;
+        border-radius: 8px;
+        font-size: 28px;
+        color: #000;
+    }
