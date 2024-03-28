@@ -1,0 +1,43 @@
+.body {
+    display: flex;
+    margin: 0;
+}
+.headerMain{
+    display: flex;
+    flex-direction: row;
+    gap: 20%;
+    width: 100%;
+}
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+}
+.container{
+    display: flex;
+    justify-content: right;
+}
+.logo {
+    background-image: url(https://pbs.twimg.com/profile_images/618093943675170816/-MKRGfWn_400x400.png);
+    border-radius: 8%;
+    background-size: cover;
+    height: 40px; 
+    width: 40px;
+}
+
+.button {
+    background-color: white;
+    border: none;
+    height: auto;
+    width: auto;
+    font-size: 14px; 
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: drop-shadow(0 0 2em #76ff64aa);
+    transform: scale(1.1);
+}
